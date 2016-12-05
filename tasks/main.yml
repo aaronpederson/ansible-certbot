@@ -69,3 +69,8 @@
     group: "{{ certbot_group }}"
     mode: 0440
   when: not certbot_combined
+
+- name: Setup Renewal
+  cron:
+    hour: "6,15"
+    job: "/bin/certbot-auto renew --quiet --no-self-upgrade"
