@@ -8,6 +8,7 @@
   git:
     repo: https://github.com/certbot/certbot.git
     dest: "{{ certbot_source }}"
+    force: True
 
 - name: does certificate exist
   shell: "if [ -f {{ certbot_certificate_path }} ]; then echo yes; else echo no; fi"
