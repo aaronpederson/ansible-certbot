@@ -19,6 +19,11 @@
   register: certbot_expires_in
   when: certbot_certificate_exists.stdout | bool
 
+- name: Stop Apache for sanity
+  service:
+    name: apache2
+    state: stopped
+
 - name: request signed certificate
   shell: "{{ certbot_source }}/certbot-auto certonly --standalone --expand --non-interactive {% if certbot_agree_tos %} --agree-tos {% endif %} {% if certbot_email %} --email {{ certbot_email }} {% endif %} -d {{ certbot_domain }} {% for prefix in certbot_prefixes %} -d {{prefix}}.{{certbot_domain}} {% endfor %}"
   when: (not certbot_certificate_exists.stdout | bool or certbot_expires_in.stdout is defined and certbot_expires_in.stdout | int < 2592000) and not certbot_dry_run
