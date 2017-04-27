@@ -79,6 +79,7 @@
 - name: Setup Renewal
   cron:
     name: Certbot Auto Renewal
+    minute: "0"
     hour: "6,15"
-    job: "{{ certbot_source}}/certbot-auto renew --quiet --no-self-upgrade"
+    job: "{{ certbot_source}}/certbot-auto renew --quiet"
     state: present
