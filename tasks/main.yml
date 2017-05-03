@@ -81,5 +81,5 @@
     name: Certbot Auto Renewal
     minute: "0"
     hour: "6,15"
-    job: "{{ certbot_source}}/certbot-auto renew --quiet"
+    job: "{{ certbot_source}}/certbot-auto renew --quiet {% if certbot_prehook %} --pre-hook \"{{ certbot_prehook }}\" {% endif %} {% if certbot_posthook %} --post-hook \"{{ certbot_posthook }}\" {% endif %}"
     state: present
